@@ -77,14 +77,16 @@ const customers = [
 ];
 
 app.get("/customers", (req, res) => {
-  res.status(200).json(customers);
+  res
+    .status(200)
+    .json({ data: customers, message: "Data fetched successfully" });
 });
 
 app.get("/customers/:id", (req, res) => {
   const id = req.params.id;
   const customer = customers.find((customer) => customer.id == id);
   if (customer) {
-    res.status(200).json(customer);
+    res.status(200).json({ data: [customer], message: "Customer found" });
   } else {
     res.status(404).json({ message: "Customer not found" });
   }
@@ -98,7 +100,7 @@ app.get("/customers/name/:name", (req, res) => {
       customer.last_name.toLowerCase().includes(name.toLowerCase())
   );
   if (customer) {
-    res.status(200).json(customer);
+    res.status(200).json({ data: customer, message: "Customer found" });
   } else {
     res.status(404).json({ message: "Customer not found" });
   }
